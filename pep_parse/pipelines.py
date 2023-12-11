@@ -2,15 +2,7 @@ import csv
 from collections import defaultdict
 from datetime import datetime as dt
 
-from pep_parse.settings import BASE_DIR
-
-
-results_dir = BASE_DIR / 'results'
-results_dir.mkdir(exist_ok=True)
-
-
-FILE_NAME = f'status_summary_{dt.date() + dt.time()}.csv'
-file_path = results_dir / FILE_NAME
+from pep_parse.settings import BASE_DIR, DATETIME_FORMAT
 
 
 table_list = [
@@ -32,6 +24,15 @@ class PepParsePipeline:
         return item
 
     def close_spider(self, spider):
+        results_dir = BASE_DIR / 'results'
+        results_dir.mkdir(exist_ok=True)
+
+        now = dt.now()
+        now_formatted = now.strftime(DATETIME_FORMAT)
+
+        file_name = f'status_summary_{now_formatted}.csv'
+        file_path = results_dir / file_name
+
         pep_status_dict['TOTAL'] += sum(pep_status_dict.values())
 
         table_list.append(
