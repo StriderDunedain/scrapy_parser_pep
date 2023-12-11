@@ -1,5 +1,6 @@
 import csv
 from collections import defaultdict
+from datetime import datetime as dt
 
 from pep_parse.settings import BASE_DIR
 
@@ -7,7 +8,8 @@ from pep_parse.settings import BASE_DIR
 results_dir = BASE_DIR / 'results'
 results_dir.mkdir(exist_ok=True)
 
-FILE_NAME = 'status_summary_%(time)s.csv'
+
+FILE_NAME = f'status_summary_{dt.date() + dt.time()}.csv'
 file_path = results_dir / FILE_NAME
 
 
