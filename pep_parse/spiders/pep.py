@@ -33,7 +33,7 @@ class PepSpider(scrapy.Spider):
         ).css('h1::text').get()
 
         # Находим статус, название и номер PEP'а...
-        status = abbr_tag[0].css('abbr::text').get()
+        status = response.css('dt:contains("Status") + dd abbr::text').get()
         name = abbr_tag[1].css('abbr::attr(title)').get()
         number = int(title.split()[1])
 
